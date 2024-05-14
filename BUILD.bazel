@@ -1,0 +1,13 @@
+load("@yacl//bazel:yacl.bzl", "yacl_cc_binary")
+package(default_visibility = ["//visibility:public"])
+
+yacl_cc_binary(
+  name = "yacl_test",
+  srcs = ["retry_test.cc"],
+  deps = [
+    "@yacl//yacl/link:context",
+    "@yacl//yacl/link:factory",
+    "@yacl//yacl/link:link",
+  ]
+)
+
