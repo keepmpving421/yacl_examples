@@ -91,15 +91,13 @@ int main(int argc, char **argv) {
       // Always send.
       ByteContainerView send_value(test_data.data(), test_data.size());
       ctx->Send(ctx->NextRank(), send_value, "500MB_chunk");
-
-      SPDLOG_INFO("Finish send.");
-      sleep(5);
+      ctx->Recv(ctx->PrevRank(), "500MB_chunk");
     }
   } else {
     while (!stop_signal) {
       // Always recv.
       auto recv_data = ctx->Recv(ctx->PrevRank(), "500MB_chunk");
-      SPDLOG_INFO("Finish recv.");
+      ctx->Send(ctx->NextRank(), recv_data, "500MB_chunk");
     }
   }
 
